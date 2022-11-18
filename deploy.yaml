@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: detector
+  labels:
+    app: detector
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: detector
+  template:
+    metadata:
+      labels:
+        app: detector
+    spec:
+      containers:
+        - name: detector
+          image: %DOCKER_IMG%
+          imagePullPolicy: IfNotPresent
+      serviceAccountName: detector
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: detector
